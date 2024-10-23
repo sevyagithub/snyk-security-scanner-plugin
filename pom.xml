@@ -1,53 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project>
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>plugin</artifactId>
-    <version>4.19</version>
-  </parent>
-
-  <properties>
-    <jenkins.version>2.289.3</jenkins.version>
-    <java.level>8</java.level>
-    <configuration-as-code.version>1.51</configuration-as-code.version>
-    <surefire.rerunFailingTestsCount>0</surefire.rerunFailingTestsCount>
-  </properties>
-
-  <groupId>io.snyk.plugins</groupId>
-  <artifactId>snyk-security-scanner</artifactId>
-  <version>3.3.7-SNAPSHOT</version>
-  <packaging>hpi</packaging>
-
-  <name>Snyk Security Plugin</name>
-  <description>Add the ability to test your code dependencies for vulnerabilities against Snyk database</description>
-  <url>https://github.com/jenkinsci/snyk-security-scanner-plugin</url>
-
-  <scm>
-    <connection>scm:git:ssh://github.com/jenkinsci/snyk-security-scanner-plugin.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/snyk-security-scanner-plugin.git</developerConnection>
-    <url>https://github.com/jenkinsci/snyk-security-scanner-plugin</url>
-    <tag>HEAD</tag>
-  </scm>
-  <licenses>
-    <license>
-      <name>MIT License</name>
-      <url>https://opensource.org/licenses/MIT</url>
-    </license>
-  </licenses>
-
   <dependencies>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.13.3</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci</groupId>
-      <artifactId>symbol-annotation</artifactId>
-      <version>1.23</version>
-    </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>credentials</artifactId>
@@ -75,6 +29,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <version>4.10.0</version> <!-- Added version -->
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -89,12 +44,16 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version> <!-- Added version -->
         <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
           <compilerArgs>
             <arg>-Xlint:all,-options,-path</arg>
           </compilerArgs>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <executions>
@@ -106,13 +65,25 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
+        <version>3.44</version> <!-- Added version -->
         <extensions>true</extensions>
         <configuration>
           <compatibleSinceVersion>2.0.0</compatibleSinceVersion>
           <minimumJavaVersion>1.8</minimumJavaVersion>
+        </configuration>
+      </plugin>
+
+      <!-- Optional: Add maven-surefire-plugin for unit testing -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <skipTests>false</skipTests>
         </configuration>
       </plugin>
     </plugins>
@@ -124,10 +95,16 @@
       <url>https://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
+
   <pluginRepositories>
     <pluginRepository>
       <id>repo.jenkins-ci.org</id>
       <url>https://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
+
+  <!-- Add properties for configuration-as-code -->
+  <properties>
+    <configuration-as-code.version>1.54</configuration-as-code.version> <!-- Example version -->
+  </properties>
 </project>
