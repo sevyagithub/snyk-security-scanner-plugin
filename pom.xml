@@ -1,16 +1,65 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>4.49</version> <!-- Updated parent plugin version -->
+  </parent>
+
+  <properties>
+    <jenkins.version>2.375.2</jenkins.version> <!-- Updated Jenkins version -->
+    <java.level>8</java.level>
+    <configuration-as-code.version>1.78</configuration-as-code.version> <!-- Updated version -->
+    <surefire.rerunFailingTestsCount>0</surefire.rerunFailingTestsCount>
+  </properties>
+
+  <groupId>io.snyk.plugins</groupId>
+  <artifactId>snyk-security-scanner</artifactId>
+  <version>3.3.7-SNAPSHOT</version>
+  <packaging>hpi</packaging>
+
+  <name>Snyk Security Plugin</name>
+  <description>Add the ability to test your code dependencies for vulnerabilities against Snyk database</description>
+  <url>https://github.com/jenkinsci/snyk-security-scanner-plugin</url>
+
+  <scm>
+    <connection>scm:git:ssh://github.com/jenkinsci/snyk-security-scanner-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/snyk-security-scanner-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/snyk-security-scanner-plugin</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
 
   <dependencies>
     <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.15.2</version> <!-- Updated version -->
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci</groupId>
+      <artifactId>symbol-annotation</artifactId>
+      <version>1.23</version>
+    </dependency>
+    <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>credentials</artifactId>
-      <version>2.6.1.1</version>
+      <version>2.6.3</version> <!-- Updated version -->
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins.workflow</groupId>
       <artifactId>workflow-step-api</artifactId>
-      <version>2.23</version>
+      <version>2.31</version> <!-- Updated version -->
     </dependency>
 
     <!-- Test Dependencies -->
@@ -29,13 +78,13 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>4.10.0</version> <!-- Added version -->
+      <version>5.5.0</version> <!-- Added version -->
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jodd</groupId>
       <artifactId>jodd-lagarto</artifactId>
-      <version>5.0.11</version>
+      <version>5.2.0</version> <!-- Updated version -->
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -44,10 +93,10 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version> <!-- Added version -->
+        <version>3.11.0</version> <!-- Added plugin version -->
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>1.8</source> <!-- Added Java source version -->
+          <target>1.8</target> <!-- Added Java target version -->
           <compilerArgs>
             <arg>-Xlint:all,-options,-path</arg>
           </compilerArgs>
@@ -56,6 +105,7 @@
 
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.0.0-M7</version> <!-- Updated version -->
         <executions>
           <execution>
             <goals>
@@ -69,21 +119,11 @@
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
-        <version>3.44</version> <!-- Added version -->
+        <version>3.50</version> <!-- Updated version -->
         <extensions>true</extensions>
         <configuration>
           <compatibleSinceVersion>2.0.0</compatibleSinceVersion>
           <minimumJavaVersion>1.8</minimumJavaVersion>
-        </configuration>
-      </plugin>
-
-      <!-- Optional: Add maven-surefire-plugin for unit testing -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
-        <configuration>
-          <skipTests>false</skipTests>
         </configuration>
       </plugin>
     </plugins>
@@ -103,8 +143,4 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <!-- Add properties for configuration-as-code -->
-  <properties>
-    <configuration-as-code.version>1.54</configuration-as-code.version> <!-- Example version -->
-  </properties>
 </project>
